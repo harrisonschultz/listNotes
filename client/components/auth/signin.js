@@ -1,6 +1,6 @@
 (function(){
 	angular
-		.module('workoutlog.auth.signin',['ui.router'])
+		.module('listnotes.auth.signin',['ui.router'])
 		.config(signinConfig);
 
 		function signinConfig($stateProvider) {
@@ -20,10 +20,15 @@
 			var vm = this;
 			vm.user = {};
 			vm.login = function() {
+                console.log('signincontroller');
 				UsersService.login(vm.user).then(function(response){
-					$state.go('define');
+					//$state.go('workspace');
 				});
+
 			};
+            vm.closeSignIn = function (){
+                $('#id01').removeAttr('style');
+            };
 		}
 
 		SignInController.$inject = ['$state', "UsersService"];

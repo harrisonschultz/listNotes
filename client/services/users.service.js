@@ -1,5 +1,5 @@
 (function(){
-	angular.module('workoutlog')
+	angular.module('listnotes')
 		.service('UsersService', [
 			'$http', 'API_BASE', 'SessionToken', 'CurrentUser',
 			function($http, API_BASE, SessionToken, CurrentUser) {
@@ -8,8 +8,9 @@
 				}
 
 				UsersService.prototype.create = function(user) {
+					console.log(user);
 					var userPromise = $http.post(API_BASE + 'user', {
-						user: user
+						user: {username: 'test', password: 'test'}
 					});
 
 					userPromise.then(function(response){

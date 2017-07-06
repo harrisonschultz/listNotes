@@ -1,0 +1,26 @@
+{
+  "name": "listnotesserver",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harrisonschultz/listNotes.git"
+  },
+  "author": "Harrison Schultz",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.29",
+    "mongoose": "^4.11.1"
+  },
+  "bugs": {
+    "url": "https://github.com/harrisonschultz/listNotes/issues"
+  },
+  "homepage": "https://github.com/harrisonschultz/listNotes#readme",
+  "devDependencies": {},
+  "description": ""
+}

@@ -1,6 +1,6 @@
 (function(){
 	angular
-		.module('workoutlog.auth.signup', ['ui.router'])
+		.module('listnotes.auth.signup', ['ui.router'])
 		.config(signupConfig);
 
 		function signupConfig($stateProvider) {
@@ -19,10 +19,15 @@
 		function SignUpController($state, UsersService) {
 			var vm = this;
 			vm.user = {};
+			console.log(vm);
 			vm.message = "Sign up";
 			vm.submit = function() {
-				UsersService.create(vm.user).then(function(respsonse){
-					$state.go('define');
+				console.log("About to post");
+				console.log('user' + vm.user);
+				console.log(this);
+					console.log('username: ' + vm.user.username);
+				UsersService.create(vm.user).then(function(response){
+					//$state.go('workspace');
 				});
 			};
 		}

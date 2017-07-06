@@ -1,3 +1,4 @@
 module.exports = {
-    JWT_SECRET: 'i_am_secret'
+    databaseUrl : 'mongodb://localhost:27107/test',
+    secret: 'yoursecret'
 };

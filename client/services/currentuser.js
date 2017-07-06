@@ -1,5 +1,5 @@
 (function() {
-	angular.module('workoutlog')
+	angular.module('listnotes')
 		.service('CurrentUser', [ '$window', function($window) {
 			function CurrentUser() {
 				var currUser = $window.localStorage.getItem('currentUser');

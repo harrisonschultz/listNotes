@@ -1,5 +1,5 @@
 (function(){
-	angular.module('workoutlog')
+	angular.module('listnotes')
 		.factory('AuthInterceptor', ['SessionToken', 'API_BASE', 
 			function(SessionToken, API_BASE) {
 				return {
@@ -13,7 +13,7 @@
 				};
 			}]);
 
-	angular.module('workoutlog')
+	angular.module('listnotes')
 		.config(['$httpProvider', function($httpProvider) {
 			return $httpProvider.interceptors.push('AuthInterceptor');
 		}]);

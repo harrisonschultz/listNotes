@@ -1,5 +1,5 @@
 (function(){
-	angular.module('workoutlog')
+	angular.module('listnotes')
 		.service('SessionToken', ['$window', function($window) {
 			function SessionToken(){
 				this.sessionToken = $window.localStorage.getItem('sessionToken');

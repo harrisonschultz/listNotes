@@ -4,10 +4,10 @@ var jwt = require('jsonwebtoken');
 // var sequelize = require('../db.js');
 // var User = sequelize.import('../models/users');
 
-
+d
 router.post('/', function (req, res) {
     console.log("Session POST");
-    User.findOne({
+    db.collection('users').findOne({
         where: {
             username: req.body.user.username
         }
