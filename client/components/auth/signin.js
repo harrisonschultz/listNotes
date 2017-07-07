@@ -21,16 +21,24 @@
 			vm.user = {};
 			vm.login = function() {
                 console.log('signincontroller');
+				if($('#login').attr('value') == 'Sign Up'){
+					UsersService.create(vm.user).then(function(response){
+					//$state.go('workspace');
+					});
+				}
+				else{
 				UsersService.login(vm.user).then(function(response){
 					//$state.go('workspace');
 				});
-
+				}
 			};
             vm.closeSignIn = function (){
                 $('#id01').removeAttr('style');
             };
 			vm.switchToSignup = function (){
+				
 				$('#email').slideDown();
+				$("#emailButton").prop('required',true);
 				$('#Signin').text('Sign Up');
 				$('#login').attr('value', 'Sign Up');
 				$('#new_user').attr('ng-submit',"ctrl.submit()");

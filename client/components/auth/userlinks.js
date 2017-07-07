@@ -17,6 +17,7 @@
 				};
 				vm.login = function () {
 					$('#id01').attr('style', 'display:table');
+					$('#emailButton').removeAttr('required');
 					$('#email').hide();
 					$('#Signin').text('Sign In');
 					$('#login').attr('value', 'Login');

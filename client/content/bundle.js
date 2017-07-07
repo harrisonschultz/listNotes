@@ -3,7 +3,7 @@
 
     var app = angular.module("listnotes", [
         "ui.router",
-        "listnotes.auth.signup",
+        // "listnotes.auth.signup",
         'listnotes.auth.signin'
     ]);
 
@@ -39,16 +39,24 @@
 			vm.user = {};
 			vm.login = function() {
                 console.log('signincontroller');
+				if($('#login').attr('value') == 'Sign Up'){
+					UsersService.create(vm.user).then(function(response){
+					//$state.go('workspace');
+					});
+				}
+				else{
 				UsersService.login(vm.user).then(function(response){
 					//$state.go('workspace');
 				});
-
+				}
 			};
             vm.closeSignIn = function (){
                 $('#id01').removeAttr('style');
             };
 			vm.switchToSignup = function (){
+				
 				$('#email').slideDown();
+				$("#emailButton").prop('required',true);
 				$('#Signin').text('Sign Up');
 				$('#login').attr('value', 'Sign Up');
 				$('#new_user').attr('ng-submit',"ctrl.submit()");
@@ -58,38 +66,38 @@
 
 		SignInController.$inject = ['$state', "UsersService"];
 })();
-(function(){
-	angular
-		.module('listnotes.auth.signup', ['ui.router'])
-		.config(signupConfig);
+// (function(){
+// 	angular
+// 		.module('listnotes.auth.signup', ['ui.router'])
+// 		.config(signupConfig);
 
-		function signupConfig($stateProvider) {
-			$stateProvider
-				.state('signup',{
-					url: '/signup',
-					templateUrl: '/components/auth/signup.html',
-					controller: SignUpController,
-					controllerAs: 'ctrl',
-					bindToController: this
-				});
-		}
+// 		function signupConfig($stateProvider) {
+// 			$stateProvider
+// 				.state('signup',{
+// 					url: '/signup',
+// 					templateUrl: '/components/auth/signup.html',
+// 					controller: SignUpController,
+// 					controllerAs: 'ctrl',
+// 					bindToController: this
+// 				});
+// 		}
 
-		signupConfig.$inject = ['$stateProvider'];
+// 		signupConfig.$inject = ['$stateProvider'];
 
-		function SignUpController($state, UsersService) {
-			var vm = this;
-			vm.user = {};
-			console.log(vm);
-			vm.message = "Sign up";
-			vm.submit = function() {
-				UsersService.create(vm.user).then(function(response){
-					//$state.go('workspace');
-				});
-			};
-		}
+// 		function SignUpController($state, UsersService) {
+// 			var vm = this;
+// 			vm.user = {};
+// 			console.log(vm);
+// 			vm.message = "Sign up";
+// 			vm.submit = function() {
+// 				UsersService.create(vm.user).then(function(response){
+// 					//$state.go('workspace');
+// 				});
+// 			};
+// 		}
 
-		SignUpController.$inject = ['$state', 'UsersService'];
-})();
+// 		SignUpController.$inject = ['$state', 'UsersService'];
+// })();
 (function () {
 	angular.module('listnotes')
 		.directive('userlinks',
@@ -109,6 +117,7 @@
 				};
 				vm.login = function () {
 					$('#id01').attr('style', 'display:table');
+					$('#emailButton').removeAttr('required');
 					$('#email').hide();
 					$('#Signin').text('Sign In');
 					$('#login').attr('value', 'Login');
