@@ -22,10 +22,6 @@
 			console.log(vm);
 			vm.message = "Sign up";
 			vm.submit = function() {
-				console.log("About to post");
-				console.log('user' + vm.user);
-				console.log(this);
-					console.log('username: ' + vm.user.username);
 				UsersService.create(vm.user).then(function(response){
 					//$state.go('workspace');
 				});

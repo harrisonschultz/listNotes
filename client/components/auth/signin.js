@@ -29,6 +29,13 @@
             vm.closeSignIn = function (){
                 $('#id01').removeAttr('style');
             };
+			vm.switchToSignup = function (){
+				$('#email').slideDown();
+				$('#Signin').text('Sign Up');
+				$('#login').attr('value', 'Sign Up');
+				$('#new_user').attr('ng-submit',"ctrl.submit()");
+				$('#signupText').hide();
+			}
 		}
 
 		SignInController.$inject = ['$state', "UsersService"];

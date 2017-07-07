@@ -5,21 +5,22 @@
         <div class="modal-content">
           <header class="container logincontainer">
             <a href="#" class="closebtn" ng-click = "ctrl.closeSignIn()">×</a>
-            <h2>Sign In</h2>
+            <h2 id = "Signin">Sign In</h2>
           </header>
           <div class="container logincontainer" id = "loginBody">
             <form id="new_user" ng-submit="ctrl.login()">
               <p>
-                <!--<label for="username">Username</label><br>-->
                 <input placeholder="Username" type="text" name="username" ng-model="ctrl.user.username" required>
               </p>
               <p>
-                <!--<label for="password">Password</label><br>-->
                 <input placeholder = "Password" type="password" name="password" ng-model="ctrl.user.password" required>
               </p>
+              <p id="email">
+                <input placeholder = "Email" type="email" name="email" ng-model="ctrl.user.email">
+                </p>
               <input type="submit" id="login" name="commit" value="Login" class="btn btn-default">
-              <span class="login"> Or
-               <a ui-sref="signup" id = "signUp">Sign Up.</a>
+              <span class="login" id='signupText'>
+               <a  id = "signUp" ng-click = "ctrl.switchToSignup()">Sign Up.</a>
               </span>
             </form>
           </div>

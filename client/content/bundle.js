@@ -47,6 +47,13 @@
             vm.closeSignIn = function (){
                 $('#id01').removeAttr('style');
             };
+			vm.switchToSignup = function (){
+				$('#email').slideDown();
+				$('#Signin').text('Sign Up');
+				$('#login').attr('value', 'Sign Up');
+				$('#new_user').attr('ng-submit',"ctrl.submit()");
+				$('#signupText').hide();
+			}
 		}
 
 		SignInController.$inject = ['$state', "UsersService"];
@@ -75,10 +82,6 @@
 			console.log(vm);
 			vm.message = "Sign up";
 			vm.submit = function() {
-				console.log("About to post");
-				console.log('user' + vm.user);
-				console.log(this);
-					console.log('username: ' + vm.user.username);
 				UsersService.create(vm.user).then(function(response){
 					//$state.go('workspace');
 				});
@@ -105,7 +108,13 @@
 					return !(vm.user().id);
 				};
 				vm.login = function () {
-					$('#id01').attr('style','display:table');
+					$('#id01').attr('style', 'display:table');
+					$('#email').hide();
+					$('#Signin').text('Sign In');
+					$('#login').attr('value', 'Login');
+					$('#new_user').attr('ng-submit', "ctrl.login()");
+					$('#signupText').show();
+					
 				};
 
 				vm.logout = function () {

@@ -16,7 +16,13 @@
 					return !(vm.user().id);
 				};
 				vm.login = function () {
-					$('#id01').attr('style','display:table');
+					$('#id01').attr('style', 'display:table');
+					$('#email').hide();
+					$('#Signin').text('Sign In');
+					$('#login').attr('value', 'Login');
+					$('#new_user').attr('ng-submit', "ctrl.login()");
+					$('#signupText').show();
+					
 				};
 
 				vm.logout = function () {
