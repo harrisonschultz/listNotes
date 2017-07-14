@@ -8,13 +8,12 @@
 				}
 
 				UsersService.prototype.create = function(user) {
-					console.log(user);
-					var userPromise = $http.post(API_BASE + 'user', {
-						user: {username: 'test', password: 'test'}
-					});
+					console.log("This is the user: ");
+						console.log(user);
+					var userPromise = $http.post(API_BASE + 'user', {user: user});
 
 					userPromise.then(function(response){
-						SessionToken.set(response.data.sessionToken);
+						SessionToken.set(response.data.token);
 						CurrentUser.set(response.data.user);
 					});
 					return userPromise;

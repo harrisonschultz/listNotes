@@ -3,13 +3,13 @@
     <li><a ui-sref="logs">Logs</a></li>
     <li><a ui-sref="history">History</a></li>-->
 </ul>
-<div class="container">
+<div class="container navigationBar">
 	<ul class="nav navbar-nav navbar-right">
 	    <li ng-show="ctrl.signedIn()"> 
 	       <a href="#" ng-click="ctrl.logout()">Sign out</a>
 	    </li>
 		    <li ng-show="ctrl.signedOut()"> 
-	       <a href="#id01" ng-click="ctrl.login()">Sign In</a>
+	       <a href="#id01" ng-click="ctrl.login()">Sign In/Up</a>
 
 	    </li>
 	</ul>

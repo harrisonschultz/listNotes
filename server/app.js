@@ -4,30 +4,51 @@ var Account = require('./models/users')(mongoose);//pass in mongoose to models/u
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 
-var MongoClient = require('mongodb').MongoClient
-        , assert = require('assert');
 
 
 // Use connect method to connect to the Server 
-mongoose.connect('mongodb://localhost:27107/test', {useMongoClient: true,})
+mongoose.connect('mongodb://localhost:listNotes/listNotes', function (err, db) {
+    if (err) throw err;
+    console.log("Database created!");
+    /*{useMongoClient: true,}*/
+});
 
 mongoose.connection.on('connected', function () { console.log('connected to db ' + mongodb.databaseUrl) });
 
-
-
 app.use(bodyParser.json());
 //app includes the headers.js file
- app.use(require('./middleware/headers'));
+app.use(require('./middleware/headers'));
 // app.use(require('./middleware/validate-session'));
 // app.use('/api/login', require('./routes/session'));
 // app.use('/api/user', require('./routes/user'));
 
-app.post('/api/user',function(req,res){
+app.post('/api/user', function (req, res) {
+    console.log(req.body);
     var username = req.body.user.username;
-    var pass = req.body.user.password; 
+    var pass = req.body.user.password;
+    var email = req.body.user.email;
 
-    Account.register(username, pass);
+   var dbuser = Account.register(username, pass, email);
+      res.json({
+            user: dbuser.user,
+            token: dbuser.token
+        })
+    res.send(200);
+});
+
+app.post('/api/login', function (req, res) {
+    console.log(req.body);
+    var username = req.body.user.username;
+    var pass = req.body.user.password;
+    var email = req.body.user.email;
+
+   var dbuser = Account.register(username, pass, email);
+      res.json({
+            user: dbuser.user,
+            token: dbuser.token
+        })
     res.send(200);
 });
 

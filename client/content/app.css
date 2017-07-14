@@ -93,3 +93,16 @@ footer {
   color: white;
   height: 15%;
 }
+
+.navbar-default{
+  background-color: #5CB87D;
+}
+
+.navbar-default .navbar-brand{
+  color: white;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}

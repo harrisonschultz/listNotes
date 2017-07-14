@@ -20,9 +20,10 @@
 			var vm = this;
 			vm.user = {};
 			vm.login = function() {
-                console.log('signincontroller');
+                console.log(vm.user);
 				if($('#login').attr('value') == 'Sign Up'){
 					UsersService.create(vm.user).then(function(response){
+						
 					//$state.go('workspace');
 					});
 				}
