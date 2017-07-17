@@ -1,3 +1,3 @@
 module.exports = {
-    secret: 'KennPastabilities'
+    JWT_SECRET: 'KennPastabilities'
 };

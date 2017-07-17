@@ -1,26 +1,26 @@
 (function() {
 	angular.module('listnotes')
-		.service('CurrentUser', [ '$window', function($window) {
-			function CurrentUser() {
+		.service('currentUser', [ '$window', function($window) {
+			function currentUser() {
 				var currUser = $window.localStorage.getItem('currentUser');
 				if (currUser && currUser !== "undefined") {
 					this.currentUser = JSON.parse($window.localStorage.getItem('currentUser'));
 				}
 			}
-			CurrentUser.prototype.set = function(user) {
+			currentUser.prototype.set = function(user) {
 				this.currentUser = user;
 				$window.localStorage.setItem('currentUser', JSON.stringify(user));
 			};
-			CurrentUser.prototype.get = function() {
+			currentUser.prototype.get = function() {
 				return this.currentUser || {};
 			};
-			CurrentUser.prototype.clear = function() {
+			currentUser.prototype.clear = function() {
 				this.currentUser = undefined;
 				$window.localStorage.removeItem('currentUser');
 			};
-			CurrentUser.prototype.isSignedIn = function() {
+			currentUser.prototype.isSignedIn = function() {
 				return !!this.get().id;
 			};
-			return new CurrentUser();
+			return new currentUser();
 		}]);
 })();

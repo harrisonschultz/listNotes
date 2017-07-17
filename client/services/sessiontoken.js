@@ -1,23 +1,23 @@
 (function(){
 	angular.module('listnotes')
-		.service('SessionToken', ['$window', function($window) {
-			function SessionToken(){
-				this.sessionToken = $window.localStorage.getItem('sessionToken');
+		.service('sessionToken', ['$window', function($window) {
+			function sessionToken(){
+				this.sessionToken = $window.localStorage.getItem('SessionToken');
 			}
 
-			SessionToken.prototype.set = function(token) {
+			sessionToken.prototype.set = function(token) {
 				this.sessionToken = token;
-				$window.localStorage.setItem('sessionToken', token);
+				$window.localStorage.setItem('SessionToken', token);
 			};
 
-			SessionToken.prototype.get = function(){
+			sessionToken.prototype.get = function(){
 				return this.sessionToken;
 			};
 
-			SessionToken.prototype.clear = function() {
+			sessionToken.prototype.clear = function() {
 				this.sessionToken = undefined;
-				$window.localStorage.removeItem('sessionToken');
+				$window.localStorage.removeItem('SessionToken');
 			};
-			return new SessionToken();
+			return new sessionToken();
 		}]);
 })();

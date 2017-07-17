@@ -1,8 +1,8 @@
 (function(){
 	angular.module('listnotes')
 		.service('UsersService', [
-			'$http', 'API_BASE', 'SessionToken', 'CurrentUser',
-			function($http, API_BASE, SessionToken, CurrentUser) {
+			'$http', 'API_BASE', 'sessionToken', 'currentUser',
+			function($http, API_BASE, sessionToken, currentUser) {
 				function UsersService(){
 
 				}
@@ -13,8 +13,8 @@
 					var userPromise = $http.post(API_BASE + 'user', {user: user});
 
 					userPromise.then(function(response){
-						SessionToken.set(response.data.token);
-						CurrentUser.set(response.data.user);
+						sessionToken.set(response.data.token);
+						currentUser.set(response.data.user);
 					});
 					return userPromise;
 				};
@@ -24,10 +24,9 @@
 						user: user
 					});
 
-					loginPromise.then(function(response){
-						
-						SessionToken.set(response.data.sessionToken);
-						CurrentUser.set(response.data.user);
+					loginPromise.then(function(response){		
+						sessionToken.set(response.data.token);
+						currentUser.set(response.data.user);
 					});
 					return loginPromise;
 				};

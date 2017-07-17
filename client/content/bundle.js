@@ -41,13 +41,14 @@
                 console.log(vm.user);
 				if($('#login').attr('value') == 'Sign Up'){
 					UsersService.create(vm.user).then(function(response){
-						
 					//$state.go('workspace');
+					 $('#id01').removeAttr('style');
 					});
 				}
 				else{
 				UsersService.login(vm.user).then(function(response){
 					//$state.go('workspace');
+					 $('#id01').removeAttr('style');
 				});
 				}
 			};
@@ -103,18 +104,18 @@
 	angular.module('listnotes')
 		.directive('userlinks',
 		function () {
-			UserLinksController.$inject = ['$state', 'CurrentUser', 'SessionToken'];
-			function UserLinksController($state, CurrentUser, SessionToken) {
+			UserLinksController.$inject = ['$state', 'currentUser', 'sessionToken'];
+			function UserLinksController($state, currentUser, sessionToken) {
 				var vm = this;
-				vm.user = function () {
-					return CurrentUser.get();
+				vm.token = function () {
+					return sessionToken.get();
 				};
 
 				vm.signedIn = function () {
-					return !!(vm.user().id);
+					return !!(vm.token().token);
 				};
 				vm.signedOut = function () {
-					return !(vm.user().id);
+					return !(vm.token().token);
 				};
 				vm.login = function () {
 					$('#id01').attr('style', 'display:table');
@@ -128,8 +129,8 @@
 				};
 
 				vm.logout = function () {
-					CurrentUser.clear();
-					SessionToken.clear();
+					currentUser.clear();
+					sessionToken.clear();
 					$state.go('signin');
 				};
 			}
@@ -145,11 +146,11 @@
 })();
 (function(){
 	angular.module('listnotes')
-		.factory('AuthInterceptor', ['SessionToken', 'API_BASE', 
-			function(SessionToken, API_BASE) {
+		.factory('AuthInterceptor', ['sessionToken', 'API_BASE', 
+			function(sessionToken, API_BASE) {
 				return {
 					request: function(config) {
-						var token = SessionToken.get();
+						var token = sessionToken.get();
 						if (token && config.url.indexOf(API_BASE) > -1) {
 							config.headers['Authorization'] = token;
 						}
@@ -165,58 +166,58 @@
 })();
 (function() {
 	angular.module('listnotes')
-		.service('CurrentUser', [ '$window', function($window) {
-			function CurrentUser() {
+		.service('currentUser', [ '$window', function($window) {
+			function currentUser() {
 				var currUser = $window.localStorage.getItem('currentUser');
 				if (currUser && currUser !== "undefined") {
 					this.currentUser = JSON.parse($window.localStorage.getItem('currentUser'));
 				}
 			}
-			CurrentUser.prototype.set = function(user) {
+			currentUser.prototype.set = function(user) {
 				this.currentUser = user;
 				$window.localStorage.setItem('currentUser', JSON.stringify(user));
 			};
-			CurrentUser.prototype.get = function() {
+			currentUser.prototype.get = function() {
 				return this.currentUser || {};
 			};
-			CurrentUser.prototype.clear = function() {
+			currentUser.prototype.clear = function() {
 				this.currentUser = undefined;
 				$window.localStorage.removeItem('currentUser');
 			};
-			CurrentUser.prototype.isSignedIn = function() {
+			currentUser.prototype.isSignedIn = function() {
 				return !!this.get().id;
 			};
-			return new CurrentUser();
+			return new currentUser();
 		}]);
 })();
 (function(){
 	angular.module('listnotes')
-		.service('SessionToken', ['$window', function($window) {
-			function SessionToken(){
-				this.sessionToken = $window.localStorage.getItem('sessionToken');
+		.service('sessionToken', ['$window', function($window) {
+			function sessionToken(){
+				this.sessionToken = $window.localStorage.getItem('SessionToken');
 			}
 
-			SessionToken.prototype.set = function(token) {
+			sessionToken.prototype.set = function(token) {
 				this.sessionToken = token;
-				$window.localStorage.setItem('sessionToken', token);
+				$window.localStorage.setItem('SessionToken', token);
 			};
 
-			SessionToken.prototype.get = function(){
+			sessionToken.prototype.get = function(){
 				return this.sessionToken;
 			};
 
-			SessionToken.prototype.clear = function() {
+			sessionToken.prototype.clear = function() {
 				this.sessionToken = undefined;
-				$window.localStorage.removeItem('sessionToken');
+				$window.localStorage.removeItem('SessionToken');
 			};
-			return new SessionToken();
+			return new sessionToken();
 		}]);
 })();
 (function(){
 	angular.module('listnotes')
 		.service('UsersService', [
-			'$http', 'API_BASE', 'SessionToken', 'CurrentUser',
-			function($http, API_BASE, SessionToken, CurrentUser) {
+			'$http', 'API_BASE', 'sessionToken', 'currentUser',
+			function($http, API_BASE, sessionToken, currentUser) {
 				function UsersService(){
 
 				}
@@ -227,8 +228,8 @@
 					var userPromise = $http.post(API_BASE + 'user', {user: user});
 
 					userPromise.then(function(response){
-						SessionToken.set(response.data.token);
-						CurrentUser.set(response.data.user);
+						sessionToken.set(response.data.token);
+						currentUser.set(response.data.user);
 					});
 					return userPromise;
 				};
@@ -238,10 +239,9 @@
 						user: user
 					});
 
-					loginPromise.then(function(response){
-						
-						SessionToken.set(response.data.sessionToken);
-						CurrentUser.set(response.data.user);
+					loginPromise.then(function(response){		
+						sessionToken.set(response.data.token);
+						currentUser.set(response.data.user);
 					});
 					return loginPromise;
 				};

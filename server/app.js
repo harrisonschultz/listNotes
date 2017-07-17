@@ -30,26 +30,33 @@ app.post('/api/user', function (req, res) {
     var pass = req.body.user.password;
     var email = req.body.user.email;
 
-   var dbuser = Account.register(username, pass, email);
-      res.json({
-            user: dbuser.user,
-            token: dbuser.token
-        })
-    res.send(200);
+    var dbuser = Account.register(username, pass, email);
+    res.json({
+        user: dbuser.user,
+        token: dbuser.token
+    })
 });
 
 app.post('/api/login', function (req, res) {
-    console.log(req.body);
     var username = req.body.user.username;
     var pass = req.body.user.password;
-    var email = req.body.user.email;
+   
 
-   var dbuser = Account.register(username, pass, email);
-      res.json({
-            user: dbuser.user,
-            token: dbuser.token
-        })
-    res.send(200);
+    //console.log(dbuser);
+
+    var test = Account.login(username, pass)
+    console.log("sergserg" +test)
+    test.then(function(data){
+         res.json({
+             user: data.user,
+             token: data.token
+         })
+     })
+    // console.log(dbuser);
+    //   res.json({
+    //     user:  dbuser.user,
+    //     token: dbuser.token
+    //  })
 });
 
 app.listen(3000, function () {

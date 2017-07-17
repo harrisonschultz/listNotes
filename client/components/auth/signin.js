@@ -23,13 +23,14 @@
                 console.log(vm.user);
 				if($('#login').attr('value') == 'Sign Up'){
 					UsersService.create(vm.user).then(function(response){
-						
 					//$state.go('workspace');
+					 $('#id01').removeAttr('style');
 					});
 				}
 				else{
 				UsersService.login(vm.user).then(function(response){
 					//$state.go('workspace');
+					 $('#id01').removeAttr('style');
 				});
 				}
 			};

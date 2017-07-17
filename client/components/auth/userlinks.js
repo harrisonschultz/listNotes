@@ -2,18 +2,18 @@
 	angular.module('listnotes')
 		.directive('userlinks',
 		function () {
-			UserLinksController.$inject = ['$state', 'CurrentUser', 'SessionToken'];
-			function UserLinksController($state, CurrentUser, SessionToken) {
+			UserLinksController.$inject = ['$state', 'currentUser', 'sessionToken'];
+			function UserLinksController($state, currentUser, sessionToken) {
 				var vm = this;
-				vm.user = function () {
-					return CurrentUser.get();
+				vm.token = function () {
+					return sessionToken.get();
 				};
 
 				vm.signedIn = function () {
-					return !!(vm.user().id);
+					return !!(vm.token().token);
 				};
 				vm.signedOut = function () {
-					return !(vm.user().id);
+					return !(vm.token().token);
 				};
 				vm.login = function () {
 					$('#id01').attr('style', 'display:table');
@@ -27,8 +27,8 @@
 				};
 
 				vm.logout = function () {
-					CurrentUser.clear();
-					SessionToken.clear();
+					currentUser.clear();
+					sessionToken.clear();
 					$state.go('signin');
 				};
 			}
