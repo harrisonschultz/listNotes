@@ -112,10 +112,11 @@
 				};
 
 				vm.signedIn = function () {
-					return !!(vm.token().token);
+					
+					return !!(vm.token());
 				};
 				vm.signedOut = function () {
-					return !(vm.token().token);
+					return !(vm.token());
 				};
 				vm.login = function () {
 					$('#id01').attr('style', 'display:table');
@@ -144,6 +145,7 @@
 			};
 		});
 })();
+
 (function(){
 	angular.module('listnotes')
 		.factory('AuthInterceptor', ['sessionToken', 'API_BASE', 

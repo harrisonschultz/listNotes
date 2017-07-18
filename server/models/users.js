@@ -33,35 +33,39 @@ module.exports = function (mongoose) {
         })
 
     }
-
-    var login = function (username, password) {
-       var user = User.findOne({ "username": username })
-         
+    var login = function (username, password, res) {
+       var userPromise = User.findOne({ "username": username })
+            .then(function (user) {
                 console.log("//////////////////////////////////////////////////////////////////////////////////////////");
                 console.log(user);
                 if (user) {
+                    console.log(user.password);
                     bcrypt.compare(password, user.password, function (err, matches) {
                         if (matches) {
                             var token = jwt.sign({ id: user.id }, secret.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
                             console.log("////////// CREATING A SESSION ///////////");
-                            return ({
+                            
+                            res.json({
                                 user: user,
                                 token: token
                             })
                         }
                         else {
-                            return ({ msg: "failed to authenticate" });
+                            console.log('return error message 2')
                         }
                     });
                 }
                 else {
-                    return ({ msg: "failed to authenticate" });
+                    console.log('return error message')
+
                 }
-            }
+            });
+            return userPromise
+    }
     //this is the object that is returned when this module is included in other files
     return {
         User: User,
         register: register,
-        login: login
+        login: login,
     }
 };
