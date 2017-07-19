@@ -19,6 +19,7 @@
     function workspaceController($state, workspaceService) {
         var x = this;
         x.note = {};
+        var workspaces = []
         var trix = document.querySelector("trix-editor")
         x.saveNotes = function () {
             x.note.content = JSON.stringify(trix.editor)
@@ -31,6 +32,11 @@
         x.loadNotes = function(){
             trix.editor.loadJSON(JSON.parse(localStorage["editorState"]))
         }
+        x.getAll = function(){
+            workspaceService.fetchAll();
+           x.workspaces = workspaceService.getWorkspaces()
+        }
+        x.getAll();
     }
     workspaceController.$inject = ['$state', "workspaceService"];
 })();

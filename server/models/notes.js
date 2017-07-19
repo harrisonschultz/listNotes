@@ -2,7 +2,8 @@
 module.exports = function (mongoose) {
     var notesSchema = new mongoose.Schema({
             content:  {type: Object},
-            title: {type: String}
+            title: {type: String},
+            user: {type: String}
     });
 
     var Notes = mongoose.model(/*name of table*/'notes',/*table template*/ notesSchema);
@@ -14,17 +15,27 @@ module.exports = function (mongoose) {
         return console.log('Note was saved');
     };
 
-    var saveNotes = function(noteContent,title){
+    var saveNotes = function(noteContent,title,username){
         var note = new Notes({
             content: noteContent,
-            title: title
+            title: title,
+            user: username
         })
         note.save(saveNotesCallback);
     }
-
-    var findNotes = function(title, res){
-        Notes.findOne({'title': title}).then(function(data){
+       var getNotes = function(username, res){
+        Notes.findOne({'user': username}).then(function(data){
+              var dataArray = data.toArray();
             res.json({
+               notes: dataArray
+            })
+          
+        })
+    }
+
+    var findNote = function(title, username, res){
+        Notes.findOne({'title': title, 'user': username}).then(function(data){
+             res.json({
                note: data 
             })
         })
@@ -32,6 +43,8 @@ module.exports = function (mongoose) {
     //this is the object that is returned when this module is included in other files
     return {
        notes: Notes,
-       saveNotes: saveNotes
+       saveNotes: saveNotes,
+       getNotes : getNotes,
+       findNote :findNote
     }
 };

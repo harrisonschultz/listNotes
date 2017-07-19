@@ -36,23 +36,32 @@ app.post('/api/user', function (req, res) {
         user: dbuser.user,
         token: dbuser.token
     })
+    req.user = dbuser.user;
+     console.log('\n\n');
+     console.log(req.user);
+     console.log('\n\n');
 });
 
 app.post('/api/login', function (req, res) {
     var username = req.body.user.username;
     var pass = req.body.user.password;
 
-    Account.login(username, pass, res)
+    Account.login(username, pass, res, req)
+     console.log('\n\n');
+     console.log(req.user);
+     console.log('\n\n');
 });
 
-app.post('/api/notes', function (req, res) {
-    
-    notesModel.saveNotes(req.body.note.content, req.body.note.title)
+app.post('/api/notes', function (req, res) { 
+    notesModel.saveNotes(req.body.note.content, req.body.note.title, req.body.user.username)
 });
 app.get('/api/notes', function (req, res) {
-    
-    notesModel.findNotes(req.body.note.title, res);
+    notesModel.getNotes(req.user.username, res);
 });
+// app.get('/api/notes', function (req, res) {
+    
+//     notesModel.findNote(req.body.note.title,  req.body.user.username, res);
+// });
 
 app.listen(3000, function () {
     console.log("app is listening on 3000");

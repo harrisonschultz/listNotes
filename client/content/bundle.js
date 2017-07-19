@@ -134,6 +134,7 @@
     function workspaceController($state, workspaceService) {
         var x = this;
         x.note = {};
+        var workspaces = []
         var trix = document.querySelector("trix-editor")
         x.saveNotes = function () {
             x.note.content = JSON.stringify(trix.editor)
@@ -146,6 +147,11 @@
         x.loadNotes = function(){
             trix.editor.loadJSON(JSON.parse(localStorage["editorState"]))
         }
+        x.getAll = function(){
+            workspaceService.fetchAll();
+           x.workspaces = workspaceService.getWorkspaces()
+        }
+        x.getAll();
     }
     workspaceController.$inject = ['$state', "workspaceService"];
 })();
@@ -255,26 +261,47 @@
 })();
 (function () {
     angular.module('listnotes')
-        .service('workspaceService', [
-            '$http', 'API_BASE',
-            function ($http, API_BASE ) {
-                function workspaceService() {
+        .service('workspaceService', workspaceService);
 
-                }
+    workspaceService.$inject=  ['$http', 'API_BASE','currentUser']
 
-                workspaceService.prototype.create = function (note) {
-                    console.log("This is the notes: ");
-                    console.log(note);
-                    var notesPromise = $http.post(API_BASE + 'notes', { note: note });
+    function workspaceService($http, API_BASE,currentUser) {
+        var workspaceService = this;
+        workspaceService.workspaces = [];
 
-                    notesPromise.then(function (response) {
-                        console.log('POST request successful');
-                        var element = document.querySelector("trix-editor")
-                        localStorage["editorState"] = JSON.stringify(element.editor)
-                    });
-                    return notesPromise;
-                };
-                return new workspaceService();
-            }]);
+
+        workspaceService.create = function (note) {
+            console.log("This is the notes: ");
+            console.log(note);
+            var notesPromise = $http.post(API_BASE + 'notes', { note: note, user: currentUser.get()});
+
+            notesPromise.then(function (response) {
+                console.log('POST request successful');
+                workspaceService.workspaces.unshift(response.data);
+            });
+            return notesPromise;
+        };
+
+        // workspaceService.fetch = function (note) {
+        //     return $http.get(API_BASE + 'notes')
+        //         .then(function (response) {
+        //             workspaceService.workspaces = response.data;
+        //         });
+        // };
+
+        workspaceService.fetchAll = function () {
+            console.log(currentUser.get());
+             $http.get(API_BASE + 'notes')
+                .then(function (response) {
+                    workspaceService.workspaces = response.data;
+                });
+        };
+
+        workspaceService.getWorkspaces = function () {
+            return workspaceService.workspaces;
+        };
+
+
+    };
 })();
 //# sourceMappingURL=bundle.js.map

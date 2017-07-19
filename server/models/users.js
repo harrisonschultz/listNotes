@@ -33,7 +33,7 @@ module.exports = function (mongoose) {
         })
 
     }
-    var login = function (username, password, res) {
+    var login = function (username, password, res, req) {
        var userPromise = User.findOne({ "username": username })
             .then(function (user) {
                 if (user) {
@@ -47,6 +47,7 @@ module.exports = function (mongoose) {
                                 user: user,
                                 token: token
                             })
+                            req.user = user;
                         }
                         else {
                             console.log('return error message 2')
