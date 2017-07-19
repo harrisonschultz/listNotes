@@ -36,8 +36,6 @@ module.exports = function (mongoose) {
     var login = function (username, password, res) {
        var userPromise = User.findOne({ "username": username })
             .then(function (user) {
-                console.log("//////////////////////////////////////////////////////////////////////////////////////////");
-                console.log(user);
                 if (user) {
                     console.log(user.password);
                     bcrypt.compare(password, user.password, function (err, matches) {

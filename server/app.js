@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var notesModel = require('./models/notes')(mongoose);
 
 
 
@@ -42,6 +43,15 @@ app.post('/api/login', function (req, res) {
     var pass = req.body.user.password;
 
     Account.login(username, pass, res)
+});
+
+app.post('/api/notes', function (req, res) {
+    
+    notesModel.saveNotes(req.body.note.content, req.body.note.title)
+});
+app.get('/api/notes', function (req, res) {
+    
+    notesModel.findNotes(req.body.note.title, res);
 });
 
 app.listen(3000, function () {

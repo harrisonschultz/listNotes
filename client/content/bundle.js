@@ -3,7 +3,7 @@
 
     var app = angular.module("listnotes", [
         "ui.router",
-        // "listnotes.auth.signup",
+        'listnotes.workspace',
         'listnotes.auth.signin'
     ]);
 
@@ -41,13 +41,13 @@
                 console.log(vm.user);
 				if($('#login').attr('value') == 'Sign Up'){
 					UsersService.create(vm.user).then(function(response){
-					//$state.go('workspace');
+					$state.go('workspace');
 					 $('#id01').removeAttr('style');
 					});
 				}
 				else{
 				UsersService.login(vm.user).then(function(response){
-					//$state.go('workspace');
+					$state.go('workspace');
 					 $('#id01').removeAttr('style');
 				});
 				}
@@ -68,38 +68,6 @@
 
 		SignInController.$inject = ['$state', "UsersService"];
 })();
-// (function(){
-// 	angular
-// 		.module('listnotes.auth.signup', ['ui.router'])
-// 		.config(signupConfig);
-
-// 		function signupConfig($stateProvider) {
-// 			$stateProvider
-// 				.state('signup',{
-// 					url: '/signup',
-// 					templateUrl: '/components/auth/signup.html',
-// 					controller: SignUpController,
-// 					controllerAs: 'ctrl',
-// 					bindToController: this
-// 				});
-// 		}
-
-// 		signupConfig.$inject = ['$stateProvider'];
-
-// 		function SignUpController($state, UsersService) {
-// 			var vm = this;
-// 			vm.user = {};
-// 			console.log(vm);
-// 			vm.message = "Sign up";
-// 			vm.submit = function() {
-// 				UsersService.create(vm.user).then(function(response){
-// 					//$state.go('workspace');
-// 				});
-// 			};
-// 		}
-
-// 		SignUpController.$inject = ['$state', 'UsersService'];
-// })();
 (function () {
 	angular.module('listnotes')
 		.directive('userlinks',
@@ -145,7 +113,42 @@
 			};
 		});
 })();
+(function () {
+    angular
+        .module('listnotes.workspace', ['ui.router'])
+        .config(workspaceConfig);
 
+    function workspaceConfig($stateProvider) {
+        $stateProvider
+            .state('workspace', {
+                url: '/workspace',
+                templateUrl: '/components/workspace/workspace.html',
+                controller: workspaceController,
+                controllerAs: 'ctrl',
+                bindToController: this
+            });
+    }
+
+    workspaceConfig.$inject = ['$stateProvider'];
+
+    function workspaceController($state, workspaceService) {
+        var x = this;
+        x.note = {};
+        var trix = document.querySelector("trix-editor")
+        x.saveNotes = function () {
+            x.note.content = JSON.stringify(trix.editor)
+            console.log(x.note.content);
+            console.log(x.note.title);
+            workspaceService.create(x.note).then(function(){
+                console.log('workspaceService.create() successful');
+            })
+        }
+        x.loadNotes = function(){
+            trix.editor.loadJSON(JSON.parse(localStorage["editorState"]))
+        }
+    }
+    workspaceController.$inject = ['$state', "workspaceService"];
+})();
 (function(){
 	angular.module('listnotes')
 		.factory('AuthInterceptor', ['sessionToken', 'API_BASE', 
@@ -249,5 +252,29 @@
 				};
 				return new UsersService();
 			}]);
+})();
+(function () {
+    angular.module('listnotes')
+        .service('workspaceService', [
+            '$http', 'API_BASE',
+            function ($http, API_BASE ) {
+                function workspaceService() {
+
+                }
+
+                workspaceService.prototype.create = function (note) {
+                    console.log("This is the notes: ");
+                    console.log(note);
+                    var notesPromise = $http.post(API_BASE + 'notes', { note: note });
+
+                    notesPromise.then(function (response) {
+                        console.log('POST request successful');
+                        var element = document.querySelector("trix-editor")
+                        localStorage["editorState"] = JSON.stringify(element.editor)
+                    });
+                    return notesPromise;
+                };
+                return new workspaceService();
+            }]);
 })();
 //# sourceMappingURL=bundle.js.map

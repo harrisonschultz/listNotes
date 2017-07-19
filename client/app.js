@@ -3,7 +3,7 @@
 
     var app = angular.module("listnotes", [
         "ui.router",
-        // "listnotes.auth.signup",
+        'listnotes.workspace',
         'listnotes.auth.signin'
     ]);
 

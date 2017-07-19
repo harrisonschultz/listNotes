@@ -4,17 +4,18 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-     "start": "./node_modules/.bin/http-server -a localhost -p 8080",
-      "prestart": "npm install",
-        "postinstall": "bower install"
+    "start": "./node_modules/.bin/http-server -a localhost -p 8080",
+    "prestart": "npm install",
+    "postinstall": "bower install"
   },
   "author": "Harrison Schultz",
   "license": "ISC",
   "dependencies": {
-    "bower": "^1.8.0"
+    "bower": "^1.8.0",
+    "trix": "^0.10.2"
   },
   "devDependencies": {
-          "bower": "^1.8.0",
+    "bower": "^1.8.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
@@ -22,6 +23,4 @@
     "gulp-sourcemaps": "^2.6.0",
     "http-server": "^0.10.0"
   }
-
-
 }

@@ -96,6 +96,10 @@ footer {
 
 .navbar-default{
   background-color: #5CB87D;
+  border: none;
+  border-radius: 0%;
+  padding-right: 100px;
+  margin-bottom: 0px;
 }
 
 .navbar-default .navbar-brand{
@@ -107,6 +111,77 @@ footer {
     color: white;
 }
 
-#head{
-  
+#backgroundImg{
+  background-image: url('./img/paper2.jpg');
+  background-repeat:no-repeat;
+  margin: 0;
+  padding: 0;
+   height:100%;
+   width:100%;
+}
+
+
+#uiDiv{
+  height:100%;
+   width:100%;
+}
+
+html, body {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+#workspace {
+  height: 85%;
+  width: 100%;
+}
+
+.col-sm-8{
+   margin-left: 3%;
+  margin-top: 1%;
+  padding: 1%;
+
+  height: 80%;
+  /*border-left: 1px solid gray;
+   border-top: 1px solid gray;*/
+  box-shadow: 4px 4px 4px gray;
+  background-color: white;
+ 
+}
+
+#notesList{
+  text-align: center;
+  box-shadow: 4px 4px 4px gray;
+  height: 100%;
+    background-color: white;
+}
+
+#notesList hr{
+  margin: 0px;
+  border-bottom: 1px solid gray;
+}
+#workspaceContainer{
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(242,242,242);
+}
+#notes{
+  height: 100%;
+  width:100%;
+}
+#saveNotes {
+  float: right;
+  margin-top: 5px;
+}
+#title {
+  float: right;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.btn-success{
+  background-color:#5CB87D;
 }

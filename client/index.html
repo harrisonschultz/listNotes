@@ -7,6 +7,8 @@
     <title>listNotes</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/content/app.css">
+    <link rel="stylesheet" type="text/css" href="/node_modules/trix/dist/trix.css">
+
 </head>
 
 <body>
@@ -21,13 +23,15 @@
     </nav>
 
 
-    <div ui-view></div>
+    <div ui-view id='uiDiv'></div>
+
 
     <script src="/bower_components/angular-loader/angular-loader.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/node_modules/trix/dist/trix.js"></script>
     <script src="/content/bundle.js"></script>
 
 </body>

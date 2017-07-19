@@ -1,16 +1,15 @@
-<ul ng-show="ctrl.signedIn()" class="nav navbar-nav">
-    <!--<li><a ui-sref="define">Define</a></li>
-    <li><a ui-sref="logs">Logs</a></li>
-    <li><a ui-sref="history">History</a></li>-->
-</ul>
-<div class="container navigationBar">
-	<ul class="nav navbar-nav navbar-right">
-	    <li ng-show="ctrl.signedIn()"> 
-	       <a href="#" ng-click="ctrl.logout()">Sign out</a>
-	    </li>
-		    <li ng-show="ctrl.signedOut()"> 
-	       <a href="#id01" ng-click="ctrl.login()">Sign In/Up</a>
 
-	    </li>
+<div class="navigationBar">
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<a ui-sref='workspace'>Workspace</a>
+		</li>
+		<li ng-show="ctrl.signedIn()">
+			<a href="#" ng-click="ctrl.logout()">Sign out</a>
+		</li>
+		<li ng-show="ctrl.signedOut()">
+			<a href="#id01" ng-click="ctrl.login()">Sign In/Up</a>
+
+		</li>
 	</ul>
 </div>

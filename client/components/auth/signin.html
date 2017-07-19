@@ -1,36 +1,36 @@
-
-<div class="container">
-  <div class="row">
-    <div align="center" id="id01" class="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <header class="container logincontainer">
-            <a href="#" class="closebtn" ng-click = "ctrl.closeSignIn()">×</a>
-            <h2 id = "Signin">Sign In</h2>
-          </header>
-          <div class="container logincontainer" id = "loginBody">
-            <form id="new_user" ng-submit="ctrl.login()">
-              <p>
-                <input placeholder="Username" type="text" name="username" ng-model="ctrl.user.username" required>
-              </p>
-              <p>
-                <input placeholder = "Password" type="password" name="password" ng-model="ctrl.user.password" required>
-              </p>
-              <p id="email">
-                <input id="emailButton"placeholder = "Email" type="email" name="email" ng-model="ctrl.user.email">
+<div id='backgroundImg'>
+  <div class="container">
+    <div class="row">
+      <div align="center" id="id01" class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <header class="container logincontainer">
+              <a href="#" class="closebtn" ng-click="ctrl.closeSignIn()">×</a>
+              <h2 id="Signin">Sign In</h2>
+            </header>
+            <div class="container logincontainer" id="loginBody">
+              <form id="new_user" ng-submit="ctrl.login()">
+                <p>
+                  <input placeholder="Username" type="text" name="username" ng-model="ctrl.user.username" required>
                 </p>
-              <input type="submit" id="login" name="commit" value="Login" class="btn btn-default">
-              <span class="login" id='signupText'>
+                <p>
+                  <input placeholder="Password" type="password" name="password" ng-model="ctrl.user.password" required>
+                </p>
+                <p id="email">
+                  <input id="emailButton" placeholder="Email" type="email" name="email" ng-model="ctrl.user.email">
+                </p>
+                <input type="submit" id="login" name="commit" value="Login" class="btn btn-default">
+                <span class="login" id='signupText'>
                <a  id = "signUp" ng-click = "ctrl.switchToSignup()">Sign Up.</a>
               </span>
-            </form>
+              </form>
+            </div>
+            <footer class="container logincontainer">
+              <br>
+            </footer>
           </div>
-          <footer class="container logincontainer">
-            <br>
-          </footer>
         </div>
       </div>
     </div>
   </div>
-  <h1 id = 'head'><center>List Notes</center></h1>
 </div>
