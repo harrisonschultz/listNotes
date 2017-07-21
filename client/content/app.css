@@ -147,20 +147,28 @@ html, body {
   /*border-left: 1px solid gray;
    border-top: 1px solid gray;*/
   box-shadow: 4px 4px 4px gray;
-  background-color: white;
+  background-color: #5CB87D;
  
 }
 
+trix-editor{
+  background-color: white;
+}
+
 #notesList{
-  text-align: center;
+
   box-shadow: 4px 4px 4px gray;
   height: 100%;
     background-color: white;
+}
+#notesList h4{
+  text-align: center;
 }
 
 #notesList hr{
   margin: 0px;
   border-bottom: 1px solid gray;
+  
 }
 #workspaceContainer{
   padding: 0;
@@ -176,12 +184,48 @@ html, body {
   float: right;
   margin-top: 5px;
 }
-#title {
+#titles {
   float: right;
     margin-top: 5px;
     margin-left: 5px;
+    height: 30px;
 }
 
-.btn-success{
-  background-color:#5CB87D;
+#titleList{
+  list-style: none;
+  padding: 0px;
+  padding-left: 4px;
+ 
+}
+#titleList li{
+   border-bottom: 1px solid rgba(200,200,200,0.6);
+   padding-top: 2px;
+   padding-bottom: 2px;
+}
+
+.listLink{
+  width: 7.5em;
+  margin: 0px;
+  display: inline-block;
+}
+
+#titleList li div:hover{
+  background-color: rgba(0,70,180,0.1);
+}
+.listLink:hover~#removeIcon{
+   opacity: 100;
+}
+#listItem{
+  display: inline;
+}
+#removeIcon{
+  float: right;
+  color: red;
+  opacity: 0;
+  padding-top: 2px;
+}
+
+#removeIcon:hover{
+  visibility: visible;
+   opacity: 100;
 }

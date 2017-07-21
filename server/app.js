@@ -8,7 +8,6 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 var notesModel = require('./models/notes')(mongoose);
 
 
-
 // Use connect method to connect to the Server 
 mongoose.connect('mongodb://localhost:listNotes/listNotes', function (err, db) {
     if (err) throw err;
@@ -46,22 +45,39 @@ app.post('/api/login', function (req, res) {
     var username = req.body.user.username;
     var pass = req.body.user.password;
 
-    Account.login(username, pass, res, req)
-     console.log('\n\n');
-     console.log(req.user);
-     console.log('\n\n');
+    Account.login(username, pass, res)
+
 });
 
 app.post('/api/notes', function (req, res) { 
     notesModel.saveNotes(req.body.note.content, req.body.note.title, req.body.user.username)
+    .then(function(){ 
+        res.sendStatus(200);
+    })
+   
+});
+app.post('/api/notesUpdate', function (req, res) { 
+    notesModel.updateNotes(req.body.note.content, req.body.note.title, req.body.user.username)
+    .then(function(){
+         res.sendStatus(200);
+    })
+   
 });
 app.get('/api/notes', function (req, res) {
-    notesModel.getNotes(req.user.username, res);
-});
-// app.get('/api/notes', function (req, res) {
+    notesModel.getNotes(JSON.parse(req.query.user).username, res);
     
-//     notesModel.findNote(req.body.note.title,  req.body.user.username, res);
-// });
+});
+app.delete('/api/notes', function (req,res){
+    console.log('entered app.delete block');
+    notesModel.deleteNotes(req.query.title,JSON.parse(req.query.user).username).then(function(){
+        res.sendStatus(200);
+    })
+
+})
+app.get('/api/notesOne', function (req, res) {
+    console.log(req.query.title);
+    notesModel.findNote(req.query.title,JSON.parse(req.query.user).username, res);
+});
 
 app.listen(3000, function () {
     console.log("app is listening on 3000");

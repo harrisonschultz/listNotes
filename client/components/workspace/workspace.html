@@ -2,14 +2,23 @@
     <div class='col-sm-1' id='notesList'>
         <h4>Notes</h4>
         <hr/>
-        <ul><li ng-repeat="title in ctrl.workspaces">{{title}}</li></ul>
+        <ul id="titleList">
+            <li ng-repeat="title in ctrl.workspaces">
+                <div id ='listItem'>
+                    <div class="listLink" ng-click='ctrl.getOne(title)'>
+                        {{title}}                           
+                    </div>
+                <span ng-click='ctrl.deleteOne(title)' id='removeIcon'class="glyphicon glyphicon-remove"></span>
+                </div>
+            </li>
+        </ul>
     </div>
     <div class='col-sm-8'>
         <form id="notes" ng-submit="ctrl.saveNotes()">
             <input id="x" value="" type="hidden" name="content">
             <trix-editor id='workspace' input='x'></trix-editor>
-            <input type="text" id='title' name='title' ng-model="ctrl.note.title" placeholder="Title" required/>
-            <input type="submit" id="saveNotes" name="save" value="Save" class="btn btn-success" />
+            <input type="text" id='titles' name='titles' ng-model="ctrl.note.title" placeholder="Title" required/>
+            <input type="submit" id="saveNotes" name="save" value="Save" class="btn btn-sm btn-primary" />
         </form>
     </div>
 </div>
