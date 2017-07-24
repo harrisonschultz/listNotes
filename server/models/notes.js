@@ -22,7 +22,7 @@ module.exports = function (mongoose) {
             user: username
         })
         var msg = 'saveNotes successful';
-        var promise = Notes.findOne({ 'title': title }, function (err, result) {
+        var promise = Notes.findOne({ 'title': title, 'user': username }, function (err, result) {
             if (err) {
                 console.log(err);
                 msg = 'saveNotes findOne query error';
@@ -54,6 +54,7 @@ module.exports = function (mongoose) {
 
     var findNote = function (title, username, res) {
         Notes.findOne({ 'title': title, 'user': username }).then(function (data) {
+            console.log(data);
             res.json({
                 note: data
             })

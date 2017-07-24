@@ -1,7 +1,7 @@
 
 <div class="navigationBar">
 	<ul class="nav navbar-nav navbar-right">
-		<li>
+		<li ng-show="ctrl.signedIn()">
 			<a ui-sref='workspace'>Workspace</a>
 		</li>
 		<li ng-show="ctrl.signedIn()">

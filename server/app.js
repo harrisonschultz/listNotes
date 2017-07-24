@@ -76,6 +76,7 @@ app.delete('/api/notes', function (req,res){
 })
 app.get('/api/notesOne', function (req, res) {
     console.log(req.query.title);
+    console.log(req.query.user);
     notesModel.findNote(req.query.title,JSON.parse(req.query.user).username, res);
 });
 
